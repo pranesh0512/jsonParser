@@ -34,6 +34,12 @@ class Lexer:
             return self.tokenize_string()
         elif re.match(r'-?\d', current_char):
             return self.tokenize_number()
+        elif current_char == 't' and self.text[self.pos:self.pos + 4] == 'true':
+            self.pos += 4
+            return ('TRUE', True)
+        elif current_char == 'f' and self.text[self.pos:self.pos + 5] == 'false':
+            self.pos += 5
+            return ('FALSE', False)
         else:
             return('INVALID', current_char)
 
